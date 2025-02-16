@@ -1,13 +1,18 @@
 import React, { useState } from "react";
-import { Avatar, Dropdown, Input, Menu } from "antd";
-import { FaRegUser, FaBell } from "react-icons/fa";
-import { IoIosArrowForward, IoIosNotificationsOutline } from "react-icons/io";
-import { RiSearch2Line } from "react-icons/ri";
-import { IoSettingsOutline } from "react-icons/io5";
-import { IoChatbubbleOutline } from "react-icons/io5";
+import { Avatar, Dropdown, Input, Menu, Layout, Button } from "antd";
+import { FaRegUser } from "react-icons/fa";
+import { IoIosNotificationsOutline } from "react-icons/io";
+import { IoSettingsOutline, IoChatbubbleOutline } from "react-icons/io5";
 import { GoSignOut } from "react-icons/go";
-import { HiOutlineMenuAlt1 } from "react-icons/hi";
 import Link from "next/link";
+import Image from "next/image";
+import logo from "../../assets/logo-dark-1.png";
+import { PiBasketLight } from "react-icons/pi";
+import { CiHeart, CiBellOn } from "react-icons/ci";
+import { HiOutlineBell } from "react-icons/hi2";
+
+const { Header } = Layout;
+const { Search } = Input;
 
 interface HeaderProps {
   onButtonClick: () => void;
@@ -16,12 +21,12 @@ interface HeaderProps {
   onMenuItemClick: (key: string) => void;
 }
 
-function Header({
+const HeaderComponent: React.FC<HeaderProps> = ({
   onButtonClick,
   isButtonClicked,
   activeMenuItem,
   onMenuItemClick,
-}: HeaderProps) {
+}) => {
   const [openDropdown, setOpenDropdown] = useState<
     "profile" | "notification" | null
   >(null);
@@ -33,22 +38,9 @@ function Header({
     setOpenDropdown(isOpen ? dropdown : null);
   };
 
-  // Custom Menu for Notifications with name, action, text, and time
   const notificationMenu = (
-    <Menu className="text-md !p-3">
-      <Menu.Item className="!text-[1.1rem] rounded-sm px-4 py-2 hover:bg-gray-100">
-        <div className="flex gap-3">
-          <Avatar size="default" icon={<FaRegUser />} />
-          <div className="flex flex-col">
-            <span className="font-medium">John Doe</span>
-            <span className="text-sm">
-              commented on your post "Amazing Photo!"
-            </span>
-            <span className="text-xs text-gray-500">2 minutes ago</span>
-          </div>
-        </div>
-      </Menu.Item>
-      <Menu.Item className="!text-[1.1rem] rounded-sm px-4 py-2 hover:bg-gray-100">
+    <Menu>
+      <Menu.Item>
         <div className="flex gap-3">
           <Avatar size="default" icon={<FaRegUser />} />
           <div className="flex flex-col">
@@ -63,148 +55,117 @@ function Header({
     </Menu>
   );
 
-  const dropItems = [
-    {
-      key: "1",
-      label: (
-        <div
-          className="rounded-sm !px-2 py-2 hover:bg-gray-100"
-          onClick={({ key }: any) => onMenuItemClick(key as string)}
-        >
-          <Link
-            href="/dashboard/profile"
-            className="flex justify-start items-center gap-2 cursor-pointer"
-          >
-            <Avatar size="default" icon={<FaRegUser />} />
-            <div className="flex flex-col">
-              <h6 className="!text-md font-medium">Parsa Farahani</h6>
-              <p className="!text-xs text-gray-500">lalala@gmail.com</p>
-            </div>
-          </Link>
-        </div>
-      ),
-    },
-    {
-      key: "2",
-      label: (
-        <div
-          className="!text-[1.1rem] rounded-sm px-4 py-2 hover:bg-gray-100"
-          onClick={({ key }: any) => onMenuItemClick(key as string)}
-        >
-          <span className="!flex !items-center !gap-2">
-            <IoChatbubbleOutline /> Messages
-          </span>
-        </div>
-      ),
-    },
-    {
-      key: "3",
-      label: (
-        <div
-          className="!text-[1.1rem] rounded-sm px-4 py-2 hover:bg-gray-100"
-          onClick={({ key }: any) => onMenuItemClick(key as string)}
-        >
-          <span className="!flex !items-center !gap-2">
-            <IoIosNotificationsOutline size={22} /> Notifications
-          </span>
-        </div>
-      ),
-    },
-    {
-      key: "4",
-      label: (
-        <div
-          className="!text-[1.1rem] rounded-sm px-4 py-2 hover:bg-gray-100"
-          onClick={({ key }: any) => onMenuItemClick(key as string)}
-        >
-          <span className="!flex !items-center !gap-2">
-            <IoSettingsOutline /> Settings
-          </span>
-        </div>
-      ),
-    },
-    {
-      key: "5",
-      label: (
-        <div
-          className="!text-[1.1rem] rounded-sm px-4 py-2 hover:bg-gray-100"
-          onClick={({ key }: any) => onMenuItemClick(key as string)}
-        >
-          <span className="!flex !items-center !gap-2">
-            <GoSignOut /> Sign Out
-          </span>
-        </div>
-      ),
-    },
-  ];
+  const dropItems = (
+    <Menu direction="rtl">
+      <Menu.Item key="1">
+        <Link href="/dashboard/profile" className="flex gap-2 items-center">
+          <Avatar size="default" icon={<FaRegUser />} />
+          <div className="flex flex-col">
+            <h6 className="font-medium">Parsa Farahani</h6>
+            <p className="text-xs text-gray-500">lalala@gmail.com</p>
+          </div>
+        </Link>
+      </Menu.Item>
+      <Menu.Item
+        className="text-right"
+        dir="rtl"
+        key="2"
+        icon={<IoChatbubbleOutline />}
+        onClick={() => onMenuItemClick("2")}
+      >
+        سفارشات و خرید ها
+      </Menu.Item>
+      <Menu.Item
+        className="text-right"
+        dir="rtl"
+        key="3"
+        icon={<IoIosNotificationsOutline />}
+        onClick={() => onMenuItemClick("3")}
+      >
+        اعتبار حساب : 0
+      </Menu.Item>
+      <Menu.Item
+        className="text-right"
+        dir="rtl"
+        key="4"
+        icon={<IoSettingsOutline />}
+        onClick={() => onMenuItemClick("4")}
+      >
+        پیام ها
+      </Menu.Item>
+      <Menu.Item
+        className="text-right"
+        dir="rtl"
+        key="5"
+        icon={<GoSignOut />}
+        onClick={() => onMenuItemClick("5")}
+      >
+        تنظیمات حساب
+      </Menu.Item>
+      <Menu.Item
+        className="text-right"
+        dir="rtl"
+        key="6"
+        icon={<GoSignOut />}
+        onClick={() => onMenuItemClick("6")}
+      >
+        فروش در دست آرت
+      </Menu.Item>
+      <Menu.Item
+        className="text-right"
+        dir="rtl"
+        key="7"
+        icon={<GoSignOut />}
+        onClick={() => onMenuItemClick("7")}
+      >
+        خروج از حساب
+      </Menu.Item>
+    </Menu>
+  );
 
   return (
-    <header className="bg-white shadow-md p-2 w-auto">
-      <div className="w-full lg:px-10 px-5">
-        <div className="flex justify-between items-center py-4">
-          {/* Right Section */}
-          <div className="flex gap-3 items-center space-x-4">
-            {/* Profile Button */}
-            <Dropdown
-              menu={{ items: dropItems }}
-              placement="bottom"
-              arrow={{ pointAtCenter: true }}
-              trigger={["click"]}
-              open={openDropdown === "profile"}
-              onOpenChange={(isOpen) => toggleDropdown("profile", isOpen)}
-            >
-              <div className="flex justify-center items-center gap-2 cursor-pointer">
-                <Avatar size="large" icon={<FaRegUser />} />
-                <div className="lg:flex hidden flex-col">
-                  <h6 className="text-lg font-medium">Parsa Farahani</h6>
-                  <p className="text-sm text-gray-500">Admin</p>
-                </div>
-              </div>
-            </Dropdown>
-
-            {/* Notification Button */}
-            {/* <Dropdown
-              placement="bottomRight"
-              arrow={{ pointAtCenter: true }}
-              overlay={notificationMenu}
-              trigger={["click"]}
-              open={openDropdown === "notification"}
-              onOpenChange={(isOpen) => toggleDropdown("notification", isOpen)}
-            >
-              <button className="text-gray-700 hover:text-gray-900">
-                <FaBell className="text-xl" />
-              </button>
-            </Dropdown> */}
+    <Header className="bg-white flex justify-between items-center w-2/3 mx-auto !p-10 gap-5">
+      <div className="flex items-center">
+        <div className="flex items-center gap-3">
+          <div>
+            <PiBasketLight size={26} />
           </div>
-
-          {/* Left Section */}
-          <div className="flex items-center space-x-4">
-            <form className="hidden md:flex">
-              <Input
-                size="large"
-                placeholder="Search..."
-                prefix={<RiSearch2Line />}
-                allowClear
-                className="border-gray-300 rounded-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-[#2d4fd4]"
-              />
-            </form>
-
-            <button
-              className="bg-blue-500 text-white px-6 py-2 rounded-md hover:bg-blue-600 transition duration-300 flex items-center justify-center gap-2 "
-              onClick={onButtonClick}
-            >
-              <p className="font-medium text-md">جستجو</p>
-              {isButtonClicked ? (
-                <HiOutlineMenuAlt1 size={23} />
-              ) : (
-                <IoIosArrowForward size={23} />
-              )}
-            </button>
+          <div>
+            <CiHeart size={26} />
           </div>
+          <div>
+            <CiBellOn size={26} />
+          </div>
+          <Dropdown
+            overlay={notificationMenu}
+            trigger={["click"]}
+            onVisibleChange={(visible) =>
+              toggleDropdown("notification", visible)
+            }
+          ></Dropdown>
+          <Dropdown
+            overlay={dropItems}
+            trigger={["click"]}
+            onVisibleChange={(visible) => toggleDropdown("profile", visible)}
+          >
+            <Avatar
+              size="default"
+              icon={<FaRegUser />}
+              className="cursor-pointer"
+            />
+          </Dropdown>
         </div>
       </div>
-    </header>
-  );
-}
 
-export default Header;
+      <Search
+        placeholder="Search..."
+        allowClear
+        className="w-5/6 !rounded-full"
+      />
+
+      <Image alt="Logo" src={logo} width={200} height={40} />
+    </Header>
+  );
+};
+
+export default HeaderComponent;

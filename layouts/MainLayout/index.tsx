@@ -1,6 +1,5 @@
 // MainLayout.tsx
 import React, { useState } from "react";
-import Asside from "@/layouts/MainLayout/Asside";
 import Header from "@/layouts/MainLayout/Header";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
@@ -26,11 +25,6 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
         />
         <main className="flex-1">{children}</main>
       </div>
-      <Asside
-        isButtonClicked={isButtonClicked}
-        activeMenuItem={activeMenuItem}
-        onMenuItemClick={handleMenuItemClick}
-      />
     </div>
   );
 };

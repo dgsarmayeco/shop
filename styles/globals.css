@@ -4,6 +4,25 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer base {
+  :root {
+    /* Logo Colors */
+    --logo-primary: #2b5395;
+    --logo-secondary: #d3a73c;
+
+    /* Footer Colors */
+    --footer-light: #fdebd2;
+    --footer-mid: #d7e6f5;
+    --footer-dark: #2c5494;
+    --footer-deep-dark: #232347;
+
+    /* Neutral Colors */
+    --neutral-lightest: #fdfdfd;
+    --neutral-light: #ebeeef;
+    --neutral-mid: #ccd1d2;
+  }
+}
+
 body {
   overflow-x: hidden;
 }
@@ -23,6 +42,7 @@ body {
   box-sizing: border-box;
   animation: rotation 1s linear infinite;
 }
+
 .loader::after {
   content: "";
   box-sizing: border-box;

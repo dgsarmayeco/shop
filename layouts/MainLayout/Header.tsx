@@ -6,10 +6,9 @@ import { IoSettingsOutline, IoChatbubbleOutline } from "react-icons/io5";
 import { GoSignOut } from "react-icons/go";
 import Link from "next/link";
 import Image from "next/image";
-import logo from "../../assets/logo-dark-1.png";
 import { PiBasketLight } from "react-icons/pi";
 import { CiHeart, CiBellOn } from "react-icons/ci";
-import { HiOutlineBell } from "react-icons/hi2";
+import logo from "../../assets/images/logo-removebg.png";
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -124,7 +123,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({
   );
 
   return (
-    <Header className="bg-white flex justify-between items-center w-2/3 mx-auto !p-10 gap-5">
+    <Header className="bg-white flex justify-between items-center w-2/3 mx-auto !p-10 gap-20">
       <div className="flex items-center">
         <div className="flex items-center gap-3">
           <div>
@@ -163,7 +162,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({
         className="w-5/6 !rounded-full"
       />
 
-      <Image alt="Logo" src={logo} width={200} height={40} />
+      <Image alt="Logo" src={logo} width={150} height={40} />
     </Header>
   );
 };

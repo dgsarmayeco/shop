@@ -33,10 +33,9 @@ const HeroSection = () => {
                         <span className="text-sm text-footer-deepDark mt-2">{category.text}</span>
                     </div>
                 ))}
+
             </div>
-            <Title text="محصولات منتخب"
-                   icon="medal-star"
-                   link={{ text: "مشاهده بیشتر", to: "/" }} />
+
         </div>
     );
 };

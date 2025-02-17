@@ -17,6 +17,4 @@ const Icon = ({ name, size, className }) => {
                    )} />
     );
 }
-
-
 export default Icon;

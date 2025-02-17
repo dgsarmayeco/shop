@@ -154,7 +154,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({
 
       <Search
         placeholder="جستجو..."
-        allowClear
+
         className="w-full"
       />
 

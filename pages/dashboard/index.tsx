@@ -3,6 +3,8 @@ import Cards from "@/components/Cards";
 import ChartComponent from "@/components/Chart";
 import DataTable from "@/components/DataTable";
 import Spinner from "@/components/Spinner";
+import HeroSection from "@/components/HeroSection";
+import SubNavbar from "@/layouts/MainLayout/SubNavbar";
 
 const DashboardPage = () => {
   const dataSource = [
@@ -16,18 +18,13 @@ const DashboardPage = () => {
   ];
 
   return (
-    <div className="bg-gray-100 h-full">
+
       <>
         <Spinner />
-        <Cards />
-        <ChartComponent />
-        <DataTable
-          dataSource={dataSource}
-          title="Dashboard Table"
-          tableColumns={tableColumns}
-        />
+        <SubNavbar/>
+        <HeroSection />
       </>
-    </div>
+
   );
 };
 

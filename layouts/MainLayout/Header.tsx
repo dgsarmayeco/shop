@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Avatar, Dropdown, Input, Menu, Layout, Button } from "antd";
+import { Avatar, Dropdown, Input, Menu, Layout } from "antd";
 import { FaRegUser } from "react-icons/fa";
 import { IoIosNotificationsOutline } from "react-icons/io";
 import { IoSettingsOutline, IoChatbubbleOutline } from "react-icons/io5";
@@ -9,6 +9,7 @@ import Image from "next/image";
 import { PiBasketLight } from "react-icons/pi";
 import { CiHeart, CiBellOn } from "react-icons/ci";
 import logo from "../../assets/images/logo-removebg.png";
+import InlineSVG from "react-inlinesvg";
 
 const { Header } = Layout;
 const { Search } = Input;
@@ -21,9 +22,7 @@ interface HeaderProps {
 }
 
 const HeaderComponent: React.FC<HeaderProps> = ({
-  onButtonClick,
-  isButtonClicked,
-  activeMenuItem,
+
   onMenuItemClick,
 }) => {
   const [openDropdown, setOpenDropdown] = useState<
@@ -123,17 +122,17 @@ const HeaderComponent: React.FC<HeaderProps> = ({
   );
 
   return (
-    <Header className="bg-white flex justify-between items-center w-2/3 mx-auto !p-10 gap-20">
+    <Header className="bg-white flex justify-between items-center mx-auto !p-10 gap-20">
       <div className="flex items-center">
         <div className="flex items-center gap-3">
           <div>
-            <PiBasketLight size={26} />
+              <InlineSVG src="/icons/shopping-bag.svg" className="w-5"/>
           </div>
           <div>
-            <CiHeart size={26} />
+              <InlineSVG src="/icons/heart.svg" className="w-5"/>
           </div>
           <div>
-            <CiBellOn size={26} />
+              <InlineSVG src="/icons/notification.svg" className="w-5"/>
           </div>
           <Dropdown
             overlay={notificationMenu}
@@ -147,19 +146,16 @@ const HeaderComponent: React.FC<HeaderProps> = ({
             trigger={["click"]}
             onVisibleChange={(visible) => toggleDropdown("profile", visible)}
           >
-            <Avatar
-              size="default"
-              icon={<FaRegUser />}
-              className="cursor-pointer"
-            />
+              <InlineSVG src="/icons/user.svg" className="w-5"/>
+
           </Dropdown>
         </div>
       </div>
 
       <Search
-        placeholder="Search..."
+        placeholder="جستجو..."
         allowClear
-        className="w-5/6 !rounded-full"
+        className="w-full"
       />
 
       <Image alt="Logo" src={logo} width={150} height={40} />

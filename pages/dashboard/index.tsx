@@ -1,11 +1,10 @@
-import {useEffect, useState} from "react";
-import Cards from "@/components/Cards";
-import ChartComponent from "@/components/Chart";
-import DataTable from "@/components/DataTable";
 import Spinner from "@/components/Spinner";
 import HeroSection from "@/components/HeroSection";
-import SubNavbar from "@/layouts/MainLayout/SubNavbar";
 import Sale from "@/pages/dashboard/BestProducts";
+import LatestProducts from "@/pages/dashboard/LatestProducts";
+import Categories from "@/pages/dashboard/categories/Categories";
+import LatestNews from "@/pages/dashboard/categories/LatestNews";
+
 
 const DashboardPage = () => {
     const dataSource = [
@@ -21,9 +20,12 @@ const DashboardPage = () => {
     return (
         <>
             <Spinner/>
-            <SubNavbar/>
             <HeroSection/>
             <Sale/>
+            <LatestProducts/>
+            <Categories/>
+            <LatestNews/>
+
         </>
     );
 };

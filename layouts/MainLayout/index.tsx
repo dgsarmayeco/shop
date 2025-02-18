@@ -1,6 +1,6 @@
-// MainLayout.tsx
 import React, { useState } from "react";
 import Header from "@/layouts/MainLayout/Header";
+import SubNavbar from "@/layouts/MainLayout/SubNavbar";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -15,17 +15,23 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
   };
 
   return (
-    <div className="flex h-full w-screen">
-      <div className="flex-1 flex flex-col">
+      <div className="flex h-full w-screen flex-col">
+        {/* Header Component */}
         <Header
-          onButtonClick={handleButtonClick}
-          isButtonClicked={isButtonClicked}
-          activeMenuItem={activeMenuItem}
-          onMenuItemClick={handleMenuItemClick}
+            onButtonClick={handleButtonClick}
+            isButtonClicked={isButtonClicked}
+            activeMenuItem={activeMenuItem}
+            onMenuItemClick={handleMenuItemClick}
         />
-        <main className="flex-1">{children}</main>
+
+        {/* Sub Navbar */}
+        <SubNavbar />
+
+        {/* Main content area */}
+        <main className="flex-1 overflow-auto">
+          {children}
+        </main>
       </div>
-    </div>
   );
 };
 

@@ -44,7 +44,20 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
     );
     return (
         <Header
-            className="bg-white flex justify-evenly items-center px-4 py-3 shadow-md sticky md:px-10 xl:px-32 top-0 z-50">
+            className="bg-white flex justify-evenly items-center px-4 py-3 sticky md:px-10 xl:px-32 top-0 z-50">
+
+            <div className="hidden md:block">
+                <Image alt="Logo" src={logo} width={150} height={40}/>
+            </div>
+
+            <Search
+                placeholder="...جستجو"
+                className="w-full md:px-10 xl:px-52 rounded text-right"
+                prefix={
+                    isMobile && (
+                        <Image alt="Logo" src={logo} width={85} height={85} className="mr-2"/>
+                    )
+                }/>
             {/* Icons Section */}
             <div className="flex items-center gap-4">
                 <InlineSVG src="/icons/heart.svg" className="w-5 cursor-pointer hidden md:block"/>
@@ -54,19 +67,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
                     <InlineSVG src="/icons/user.svg" className="w-6 cursor-pointer hidden md:block"/>
                 </Dropdown>
             </div>
-            <Search
-                placeholder="...جستجو"
-                className="w-full md:px-10 xl:px-52 rounded text-right"
-                prefix={
-                    isMobile && (
-                        <Image alt="Logo" src={logo} width={85} height={85} className="mr-2"/>
-                    )
-                }
-            />
 
-            <div className="hidden md:block">
-                <Image alt="Logo" src={logo} width={150} height={40}/>
-            </div>
         </Header>
     );
 };

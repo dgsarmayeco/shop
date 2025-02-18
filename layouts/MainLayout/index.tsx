@@ -1,6 +1,7 @@
 // MainLayout.tsx
 import React, { useState } from "react";
 import Header from "@/layouts/MainLayout/Header";
+import SubNavbar from "@/layouts/MainLayout/SubNavbar";
 
 const MainLayout = ({ children }: { children: React.ReactNode }) => {
   const [isButtonClicked, setIsButtonClicked] = useState(false);
@@ -23,6 +24,7 @@ const MainLayout = ({ children }: { children: React.ReactNode }) => {
           activeMenuItem={activeMenuItem}
           onMenuItemClick={handleMenuItemClick}
         />
+        {/*<SubNavbar/>*/}
         <main className="flex-1">{children}</main>
       </div>
     </div>

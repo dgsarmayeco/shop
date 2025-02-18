@@ -21,9 +21,9 @@ const DashboardPage = () => {
     return (
         <>
             <Spinner/>
-            <SubNavbar/>
-            <HeroSection/>
-            <Sale/>
+            {/*<SubNavbar/>*/}
+            {/*<HeroSection/>*/}
+            {/*<Sale/>*/}
         </>
     );
 };

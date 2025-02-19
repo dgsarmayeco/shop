@@ -57,7 +57,6 @@ const BestProducts = () => {
                     onChange={setActiveTab}
                     centered
                     size="large"
-                    tabBarGutter={50} // Space between tab texts
                     items={steps.map((step, index) => ({
                         key: index.toString(),
                         label: step.title,

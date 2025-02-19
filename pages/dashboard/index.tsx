@@ -4,7 +4,7 @@ import Sale from "@/pages/dashboard/BestProducts";
 import LatestProducts from "@/pages/dashboard/LatestProducts";
 import Categories from "@/pages/dashboard/categories/Categories";
 import LatestNews from "@/pages/dashboard/categories/LatestNews";
-
+import DaastArtIntroduction from "@/components/DaastArtIntroduction";
 
 const DashboardPage = () => {
     const dataSource = [
@@ -25,6 +25,7 @@ const DashboardPage = () => {
             <LatestProducts/>
             <Categories/>
             <LatestNews/>
+            <DaastArtIntroduction/>
 
         </>
     );

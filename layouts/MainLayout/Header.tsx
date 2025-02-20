@@ -4,9 +4,9 @@ import Image from "next/image";
 import InlineSVG from "react-inlinesvg";
 import ButtonStyle from "@/components/ButtonStyle";
 import logo from "../../assets/images/logo-removebg.png";
-
+import Container from "@/components/Container";
+import cn from "classnames";
 const {Header} = Layout;
-const {Search} = Input;
 
 interface HeaderProps {
     onMenuItemClick: (key: string) => void;
@@ -14,8 +14,14 @@ interface HeaderProps {
 
 const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
     const [isMobile, setIsMobile] = useState<boolean>(false);
-    const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // For mobile number input modal
-    const [isCodeModalOpen, setIsCodeModalOpen] = useState<boolean>(false); // For verification code input modal
+    const [isModalOpen, setIsModalOpen] = useState<boolean>(false);
+    const [isCodeModalOpen, setIsCodeModalOpen] = useState<boolean>(false);
+
+    // Search Dropdown State
+    const [isDropdownOpen, setIsDropdownOpen] = useState<boolean>(false);
+    const [searchQuery, setSearchQuery] = useState<string>("");
+    const [recentSearches, setRecentSearches] = useState<string[]>(["آینه و کنسول", "میز تلوزیون", "انگشتر زمرد"]);
+    const popularSearches = ["هدیه تولد", "ماگ دستساز", "آینه دفرمه", "گلدان سرامیکی"];
 
     useEffect(() => {
         const handleResize = () => setIsMobile(window.innerWidth < 768);
@@ -30,96 +36,209 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
 
     const handleCancel = () => {
         setIsModalOpen(false);
-        setIsCodeModalOpen(false); // Close both modals if canceled
+        setIsCodeModalOpen(false);
     };
 
     const handleSignUp = () => {
-        setIsModalOpen(false); // Close the mobile number input modal
-        setIsCodeModalOpen(true); // Open the verification code modal
+        setIsModalOpen(false);
+        setIsCodeModalOpen(true);
+    };
+
+    const handleSearchSelect = (item: string) => {
+        setSearchQuery(item);
+        setIsDropdownOpen(false);
+        setRecentSearches((prev) => [item, ...prev.filter((s) => s !== item)].slice(0, 5));
     };
 
     return (
-        <Header className="bg-white flex justify-evenly items-center px-4 py-3 sticky md:px-10 xl:px-32 top-0 z-50">
-            <div className="hidden md:block">
-                <Image alt="Logo" src={logo} width={150} height={40}/>
-            </div>
-            <div className="relative w-full md:px-10 xl:px-52">
-                <input
-                    type="text"
-                    placeholder="جستجو..."
-                    className="w-full h-9 border-2 py-1 pl-10 pr-4 rounded-full focus:outline-none focus:ring-2 focus:ring-blue-500 text-gray-800 placeholder-gray-400"
-                />
-                {/* Search Icon inside the input */}
-                <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                    <InlineSVG src="/icons/search.svg" className="w-5 h-5 text-gray-500" />
+        <Container tag="section">
+            <Header className="bg-white w-full px-0 flex justify-evenly items-center py-3 sticky md:px-10 z-50">
+                <div className="hidden md:block">
+                    <Image alt="Logo" src={logo} width={150} height={40}/>
                 </div>
-            </div>
-                {/* Logo Prefix (only visible on mobile) */}
+
+                {/* Mobile Search Input */}
                 {isMobile && (
-                    <div className="absolute left-3 top-1/2 transform -translate-y-1/2">
-                        <Image alt="Logo" src={logo} width={40} height={40} />
+                    <div className="relative w-full flex-1 md:px-10 xl:px-52">
+                        <div className="relative w-full">
+                            <input
+                                type="text"
+                                className={cn("w-full bg-gray-100 h-9 pl-8 pr-24 rounded-full focus:outline-none " ,
+                                    "focus:ring-1 focus:ring-logo-primary text-gray-800 text-xs" ,
+                                    " placeholder-transparent")}
+                                value={searchQuery}
+                                onFocus={() => setIsDropdownOpen(true)}
+                                onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <InlineSVG
+                                src="/icons/search.svg"
+                                className="absolute cursor-pointer fill-gray-500 top-1/2 left-3 -translate-y-1/2 w-5 h-5"
+                            />
+                            <Image
+                                alt="Logo"
+                                src={logo}
+                                width={50}
+                                // height={30}
+                                className="absolute pr-2 top-1/2 right-1 left-3 -translate-y-1/2"
+                            />
+                        </div>
+
+                        {/* Dropdown for Mobile */}
+                        {isDropdownOpen && (
+                            <div className="absolute w-full bg-white border shadow-lg rounded-lg mt-1 p-3 z-50">
+                                <div className="text-sm flex text-gray-600 mb-2">
+                                    <InlineSVG
+                                        src="/icons/like.svg"
+                                        className=" fill-gray-500 ml-1 w-5 h-5"/>
+                                    <span>جستجوهای پرطرفدار:</span>
+                                </div>
+                                <ul className="text-xs text-gray-800">
+                                    {popularSearches.map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className="py-1 px-3 cursor-pointer hover:bg-gray-100 rounded"
+                                            onMouseDown={() => handleSearchSelect(item)}
+                                        >
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <hr className="my-2"/>
+                                <div className="text-sm flex text-gray-600 mb-2">
+                                    <InlineSVG
+                                        src="/icons/timer.svg"
+                                        className=" fill-gray-500 ml-1 w-5 h-5"/>
+                                    <span>جستجوهای اخیر:</span>
+                                </div>
+                                <ul className="text-xs text-gray-800">
+                                    {recentSearches.map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className="py-1 px-3 cursor-pointer text-xs hover:bg-gray-100 rounded"
+                                            onMouseDown={() => handleSearchSelect(item)}
+                                        >
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
                     </div>
                 )}
 
-            {/* Icons Section */}
-            <div className="flex items-center gap-4">
-                <InlineSVG src="/icons/heart.svg" className="w-5 cursor-pointer hidden md:block"/>
-                <InlineSVG src="/icons/shopping-bag.svg" className="w-5 cursor-pointer hidden md:block"/>
-                <InlineSVG src="/icons/user.svg" className="w-6 cursor-pointer hidden md:block" onClick={showModal}/>
-            </div>
-
-            {/* Mobile Number Input Modal */}
-            <Modal
-                title="ورود/ثبت نام"
-                open={isModalOpen}
-                onCancel={handleCancel}
-                maskClosable={false}
-                footer={null}
-            >
-                <Form layout="vertical">
-                    <Form.Item
-                        label="لطفا شماره موبایل خود را وارد کنید."
-                        name="name"
-                        rules={[{required: true, message: 'لطفا شماره موبایل خود را وارد کنید.'}]}
-                    >
-                        <Input placeholder="09*********"/>
-                    </Form.Item>
-                    <Form.Item>
-                        <div className="flex justify-center items-center">
-                            <ButtonStyle variant="fill" color="footerDark" className="w-1/2" onClick={handleSignUp}>
-                                ثبت نام
-                            </ButtonStyle>
+                {/* Desktop Search Box with Dropdown */}
+                {!isMobile && (
+                    <div className="relative w-full flex-1 md:px-10 xl:px-52">
+                        <div className="relative w-full">
+                            <input
+                                type="text"
+                                placeholder="جستجوی محصول، دسته‌بندی یا برند..."
+                                className="w-full bg-gray-100 h-9 pl-10 pr-4 rounded-full focus:outline-none
+                                        focus:ring-1 focus:ring-logo-primary text-gray-800 text-xs placeholder-gray-400"
+                                value={searchQuery}
+                                onFocus={() => setIsDropdownOpen(true)}
+                                onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)}
+                                onChange={(e) => setSearchQuery(e.target.value)}
+                            />
+                            <InlineSVG
+                                src="/icons/search.svg"
+                                className="absolute cursor-pointer fill-gray-500 top-1/2 left-3 -translate-y-1/2 w-5 h-5"
+                            />
                         </div>
-                    </Form.Item>
-                </Form>
-            </Modal>
 
-            {/* Verification Code Modal */}
-            <Modal
-                title="کد تایید"
-                open={isCodeModalOpen}
-                onCancel={handleCancel}
-                maskClosable={false}
-                footer={null}
-            >
-                <Form layout="vertical">
-                    <Form.Item
-                        label="لطفا کد تایید ارسال شده به شماره موبایل خود را وارد کنید."
-                        name="verificationCode"
-                        rules={[{required: true, message: 'لطفا کد تایید را وارد کنید.'}]}
-                    >
-                        <Input placeholder="کد تایید"/>
-                    </Form.Item>
-                    <Form.Item>
-                        <div className="flex justify-center items-center">
-                            <ButtonStyle variant="fill" color="footerDark" className="w-1/2">
-                                تایید
-                            </ButtonStyle>
-                        </div>
-                    </Form.Item>
-                </Form>
-            </Modal>
-        </Header>
+                        {/* Dropdown for Desktop */}
+                        {isDropdownOpen && (
+                            <div className="absolute w-[20.125rem] lg:w-[35.625rem] xl:w-[33.625rem] 2xl:w-[49.625rem] bg-white border shadow-lg rounded-lg mt-1 p-3 z-50">
+
+                                <div className="text-sm flex text-gray-400 mb-2">
+                                    <InlineSVG
+                                        src="/icons/like.svg"
+                                        className=" fill-gray-500 ml-1 w-5 h-5"/>
+                                    <span >جستجوهای پرطرفدار:</span>
+                                </div>
+                                <ul className="text-xs text-gray-800">
+                                    {popularSearches.map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className="py-1 px-3 cursor-pointer hover:bg-gray-100 rounded"
+                                            onMouseDown={() => handleSearchSelect(item)}
+                                        >
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                                <hr className="my-2"/>
+
+                                <div className="text-sm flex text-gray-400 mb-2">
+                                    <InlineSVG
+                                        src="/icons/timer.svg"
+                                        className=" fill-gray-500 ml-1 w-5 h-5"/>
+                                    <span>جستجوهای اخیر:</span>
+
+                                </div>
+                                <ul className="text-xs text-gray-800">
+                                    {recentSearches.map((item, index) => (
+                                        <li
+                                            key={index}
+                                            className="py-1 px-3 cursor-pointer hover:bg-gray-100 rounded"
+                                            onMouseDown={() => handleSearchSelect(item)}
+                                        >
+                                            {item}
+                                        </li>
+                                    ))}
+                                </ul>
+                            </div>
+                        )}
+                    </div>
+                )}
+
+                {/* Icons Section */}
+                <div className="flex items-center gap-4">
+                    <InlineSVG src="/icons/heart.svg" className="w-5 cursor-pointer hidden md:block"/>
+                    <InlineSVG src="/icons/shopping-bag.svg" className="w-5 cursor-pointer hidden md:block"/>
+                    <InlineSVG src="/icons/user.svg" className="w-6 cursor-pointer hidden md:block"
+                               onClick={showModal}/>
+                </div>
+
+                {/* Mobile Number Input Modal */}
+                <Modal title="ورود/ثبت نام" open={isModalOpen} onCancel={handleCancel} maskClosable={false}
+                       footer={null}>
+                    <Form layout="vertical">
+                        <Form.Item label="لطفا شماره موبایل خود را وارد کنید." name="name"
+                                   rules={[{required: true, message: 'لطفا شماره موبایل خود را وارد کنید.'}]}>
+                            <Input placeholder="09*********"/>
+                        </Form.Item>
+                        <Form.Item>
+                            <div className="flex justify-center items-center">
+                                <ButtonStyle variant="fill" color="footerDark" className="w-1/2" onClick={handleSignUp}>
+                                    ثبت نام
+                                </ButtonStyle>
+                            </div>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+
+                {/* Verification Code Modal */}
+                <Modal title="کد تایید" open={isCodeModalOpen} onCancel={handleCancel} maskClosable={false}
+                       footer={null}>
+                    <Form layout="vertical">
+                        <Form.Item label="لطفا کد تایید ارسال شده به شماره موبایل خود را وارد کنید."
+                                   name="verificationCode"
+                                   rules={[{required: true, message: 'لطفا کد تایید را وارد کنید.'}]}>
+                            <Input placeholder="کد تایید"/>
+                        </Form.Item>
+                        <Form.Item>
+                            <div className="flex justify-center items-center">
+                                <ButtonStyle variant="fill" color="footerDark" className="w-1/2">
+                                    تایید
+                                </ButtonStyle>
+                            </div>
+                        </Form.Item>
+                    </Form>
+                </Modal>
+            </Header>
+        </Container>
     );
 };
 

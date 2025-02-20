@@ -3,6 +3,7 @@ import Link from 'next/link';
 import {useState} from 'react';
 import {DownOutlined} from '@ant-design/icons';
 import InlineSVG from "react-inlinesvg";
+import Container from "@/components/Container";
 
 const SubNavbar = () => {
     const [current, setCurrent] = useState('home');
@@ -19,13 +20,16 @@ const SubNavbar = () => {
     ];
 
     return (
-        <nav className="bg-white shadow-md lg:static md:block fixed bottom-0 w-full z-50 md:z-auto">
+
+        <Container tag="section">
+
+        <nav className="bg-white lg:static md:block fixed bottom-0 w-full z-50 md:z-auto">
             {/* The Menu is only fixed at the bottom for mobile (below 768px) */}
             <Menu
                 onClick={handleClick}
                 selectedKeys={[current]}
                 mode="horizontal"
-                className="flex justify-between p-2 border-none md:flex md:justify-start md:px-10 xl:px-32 md:space-x-6 items-center"
+                className="flex justify-between p-2 border-none md:flex md:justify-start md:px-10 md:space-x-6 items-center"
             >
                 <InlineSVG src="/icons/hambergur-menu.svg" className="fill-gray-500 w-6 pl-1"/>
                 <Menu.SubMenu key="dropdown"
@@ -44,7 +48,7 @@ const SubNavbar = () => {
                             <InlineSVG src="/icons/star.svg" className="fill-gray-500 w-6 pl-1"/>
                         </div>
                         <div className="text-gray-500 text-xs">
-                            <Link href="/">محصولاتویژه</Link>
+                            <Link href="/">محصولات ویژه</Link>
                         </div>
                     </div>
                 </Menu.Item>
@@ -69,7 +73,7 @@ const SubNavbar = () => {
                             <InlineSVG src="/icons/shop.svg" className="fill-gray-500 6 pl-1"/>
                         </div>
                         <div className="text-gray-500 text-xs">
-                            <Link href="/">فروشگاهها</Link>
+                            <Link href="/">فروشگاه‌ها</Link>
                         </div>
                     </div>
                 </Menu.Item>
@@ -97,7 +101,9 @@ const SubNavbar = () => {
                 </Menu.Item>
 
             </Menu>
+
         </nav>
+        </Container>
     );
 };
 

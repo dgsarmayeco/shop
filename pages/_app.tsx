@@ -5,6 +5,7 @@ import "../styles/globals.css";
 import localFont from "next/font/local";
 import { ConfigProvider } from "antd";
 import { useRouter } from "next/router";
+import MegaMenuCategory from "@/layouts/MainLayout/MegaMenuCategory";
 
 const dsrFont = localFont({
   src: "../fonts/IRANSans-web.woff",
@@ -17,7 +18,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   return (
     <div className={`${dsrFont.className}`}>
-      <ConfigProvider
+      <ConfigProvider direction="rtl"
         theme={{
           token: {
             fontFamily: "var(--font-iransans)",

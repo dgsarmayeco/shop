@@ -6,6 +6,7 @@ import ButtonStyle from "@/components/ButtonStyle";
 import logo from "../../assets/images/logo-removebg.png";
 import Container from "@/components/Container";
 import cn from "classnames";
+
 const {Header} = Layout;
 
 interface HeaderProps {
@@ -63,9 +64,11 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
                         <div className="relative w-full">
                             <input
                                 type="text"
-                                className={cn("w-full bg-gray-100 h-9 pl-8 pr-24 rounded-full focus:outline-none " ,
-                                    "focus:ring-1 focus:ring-logo-primary text-gray-800 text-xs" ,
-                                    " placeholder-transparent")}
+                                placeholder="جستجو در"
+                                className={cn(
+                                    "w-full bg-gray-100 h-9 pl-8 pr-9 rounded-full focus:outline-none ",
+                                    "focus:ring-1 focus:ring-logo-primary text-gray-800 text-xs",
+                                )}
                                 value={searchQuery}
                                 onFocus={() => setIsDropdownOpen(true)}
                                 onBlur={() => setTimeout(() => setIsDropdownOpen(false), 200)}
@@ -73,14 +76,23 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
                             />
                             <InlineSVG
                                 src="/icons/search.svg"
-                                className="absolute cursor-pointer fill-gray-500 top-1/2 left-3 -translate-y-1/2 w-5 h-5"
-                            />
-                            <Image
-                                alt="Logo"
-                                src={logo}
-                                width={50}
-                                // height={30}
-                                className="absolute pr-2 top-1/2 right-1 left-3 -translate-y-1/2"
+                                className="absolute cursor-pointer right-3 fill-gray-500 top-1/2 -translate-y-1/2 w-5 h-5"/>
+                            {!searchQuery && (
+                                <>
+
+                                    <Image
+                                        alt="Logo"
+                                        src="/images/logo/daastart-farsi-logo.svg"
+                                        width={80}
+                                        height={0}
+                                        className="absolute right-24 top-1/2 -translate-y-1/2"
+                                    />
+                                </>
+                            )}
+
+                            <InlineSVG
+                                src="/icons/camera.svg"
+                                className="absolute cursor-pointer left-3 fill-gray-500 top-1/2 -translate-y-1/2 w-5 h-5"
                             />
                         </div>
 
@@ -134,7 +146,7 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
                             <input
                                 type="text"
                                 placeholder="جستجوی محصول، دسته‌بندی یا برند..."
-                                className="w-full bg-gray-100 h-9 pl-10 pr-4 rounded-full focus:outline-none
+                                className="w-full bg-gray-100 h-9 pl-10 pr-9 rounded-full focus:outline-none
                                         focus:ring-1 focus:ring-logo-primary text-gray-800 text-xs placeholder-gray-400"
                                 value={searchQuery}
                                 onFocus={() => setIsDropdownOpen(true)}
@@ -143,19 +155,26 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
                             />
                             <InlineSVG
                                 src="/icons/search.svg"
+                                className="absolute cursor-pointer fill-gray-500 top-1/2 right-3 -translate-y-1/2 w-5 h-5"
+                            />
+                            <InlineSVG
+                                src="/icons/camera.svg"
                                 className="absolute cursor-pointer fill-gray-500 top-1/2 left-3 -translate-y-1/2 w-5 h-5"
                             />
                         </div>
 
+
                         {/* Dropdown for Desktop */}
                         {isDropdownOpen && (
-                            <div className="absolute w-[20.125rem] lg:w-[35.625rem] xl:w-[33.625rem] 2xl:w-[49.625rem] bg-white border shadow-lg rounded-lg mt-1 p-3 z-50">
+                            <div
+                                className={cn("absolute w-[20.125rem] lg:w-[35.625rem] xl:w-[33.625rem] ",
+                                    "2xl:w-[49.625rem] bg-white border shadow-lg rounded-lg mt-1 p-3 z-50")}>
 
                                 <div className="text-sm flex text-gray-400 mb-2">
                                     <InlineSVG
                                         src="/icons/like.svg"
                                         className=" fill-gray-500 ml-1 w-5 h-5"/>
-                                    <span >جستجوهای پرطرفدار:</span>
+                                    <span>جستجوهای پرطرفدار:</span>
                                 </div>
                                 <ul className="text-xs text-gray-800">
                                     {popularSearches.map((item, index) => (

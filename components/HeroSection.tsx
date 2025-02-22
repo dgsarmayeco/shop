@@ -3,7 +3,7 @@ import Image from 'next/image';
 import Container from "@/components/Container";
 
 const categories = [
-    {text: "مبلمان", image: "images/hero-section/furniture.svg"},
+    {text: "مبلمان", image: "/images/hero-section/sofa.png"},
     {text: "هدیه", image: "images/hero-section/gift.svg"},
     {text: "دکوراسیون", image: "images/hero-section/home-decor.svg"},
     {text: "جواهرات", image: "images/hero-section/jewelry.svg"},
@@ -27,7 +27,8 @@ const HeroSection = () => {
                                 width={60}
                                 height={60}
                                 alt={`category-image-${category.text}`}
-                                className={cn("rounded-full bg-white shadow-md cursor-pointer transition-transform duration-200 hover:scale-105 ",
+                                className={cn("rounded-full bg-white shadow-md cursor-pointer " ,
+                                    "transition-transform duration-200 hover:scale-105 ",
                                     "lg:w-28 lg:h-28 xl:w-40 xl:h-40")}
                             />
                             <span className="text-xs font-thin mt-2 text-center">{category.text}</span>

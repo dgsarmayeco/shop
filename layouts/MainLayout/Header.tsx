@@ -89,7 +89,6 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
                                     />
                                 </>
                             )}
-
                             <InlineSVG
                                 src="/icons/camera.svg"
                                 className="absolute cursor-pointer left-3 fill-gray-500 top-1/2 -translate-y-1/2 w-5 h-5"

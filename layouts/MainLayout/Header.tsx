@@ -6,6 +6,7 @@ import ButtonStyle from "@/components/ButtonStyle";
 import logo from "../../assets/images/logo-removebg.png";
 import Container from "@/components/Container";
 import cn from "classnames";
+import MegaMenuCategory from "@/layouts/MainLayout/MegaMenuCategory";
 
 const {Header} = Layout;
 
@@ -212,11 +213,30 @@ const HeaderComponent: React.FC<HeaderProps> = ({onMenuItemClick}) => {
                 )}
 
                 {/* Icons Section */}
-                <div className="flex items-center gap-4">
-                    <InlineSVG src="/icons/heart.svg" className="w-5 cursor-pointer hidden md:block"/>
-                    <InlineSVG src="/icons/shopping-bag.svg" className="w-5 cursor-pointer hidden md:block"/>
-                    <InlineSVG src="/icons/user.svg" className="w-6 cursor-pointer hidden md:block"
-                               onClick={showModal}/>
+                <div
+                    className={cn(
+                        "flex items-center gap-4",
+                        isMobile
+                            ? "fixed bottom-0 w-full bg-white py-2 border-t z-50 justify-evenly"
+                            : "hidden md:flex justify-evenly"
+                    )}
+                >
+                    {/* Conditionally render MegaMenuCategory only for mobile */}
+                    {isMobile && <MegaMenuCategory />}
+
+                    <InlineSVG
+                        src="/icons/heart.svg"
+                        className="w-5 cursor-pointer"
+                    />
+                    <InlineSVG
+                        src="/icons/shopping-bag.svg"
+                        className="w-5 cursor-pointer"
+                    />
+                    <InlineSVG
+                        src="/icons/user.svg"
+                        className="w-6 cursor-pointer"
+                        onClick={showModal}
+                    />
                 </div>
 
                 {/* Mobile Number Input Modal */}

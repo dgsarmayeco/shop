@@ -102,3 +102,10 @@ body {
   padding-left: 36px;
 }
 
+.ant-carousel .slick-prev, .ant-carousel .slick-next {
+  color: black;
+}
+#tahzib {
+  background-image: url(/images/hero-section/back.jpg);
+  background-size: auto;
+}

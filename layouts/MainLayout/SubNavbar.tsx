@@ -17,11 +17,11 @@ const SubNavbar = () => {
 
     return (
         <Container tag="section">
-            <nav className="bg-white lg:static md:block fixed bottom-0 w-full z-50 md:z-auto">
+            <nav className="bg-white hidden md:block w-full z-50 ">
                 <Menu
                     onClick={handleClick}
                     mode="horizontal"
-                    className="flex justify-between p-2 border-none md:flex md:justify-start md:px-10 md:space-x-6 items-center">
+                    className="flex justify-between p-2 border-none  md:justify-start  items-center">
                     <MegaMenuCategory/>
 
                     {[{key: "special-products", icon: "/icons/star.svg", label: "محصولات ویژه"},
